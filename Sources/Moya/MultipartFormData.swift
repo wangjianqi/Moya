@@ -8,7 +8,7 @@ public struct MultipartFormData {
     public enum FormDataProvider {
         case data(Foundation.Data)
         case file(URL)
-        case stream(InputStream, UInt64)
+        case stream(InputStream, length: UInt64)
     }
 
     public init(provider: FormDataProvider, name: String, fileName: String? = nil, mimeType: String? = nil) {

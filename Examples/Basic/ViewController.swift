@@ -10,6 +10,7 @@ class ViewController: UITableViewController {
 
         progressView.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: 2))
         progressView.backgroundColor = .blue
+        ///navigationBar
         navigationController?.navigationBar.addSubview(progressView)
 
         downloadRepositories("ashfurrow")
@@ -32,6 +33,7 @@ class ViewController: UITableViewController {
                 self.repos = value
                 self.tableView.reloadData()
             } catch {
+                ///提示错误
                 let printableError = error as CustomStringConvertible
                 self.showAlert("GitHub Fetch", message: printableError.description)
             }
@@ -42,6 +44,7 @@ class ViewController: UITableViewController {
         gitHubProvider.request(.zen) { result in
             var message = "Couldn't access API"
             if case let .success(response) = result {
+                ///转字符串
                 let jsonString = try? response.mapString()
                 message = jsonString ?? message
             }
@@ -51,6 +54,7 @@ class ViewController: UITableViewController {
     }
 
     func uploadGiphy() {
+        ///上传
         giphyProvider.request(.upload(gif: Giphy.animatedBirdData),
                               callbackQueue: DispatchQueue.main,
                               progress: progressClosure,
@@ -58,6 +62,7 @@ class ViewController: UITableViewController {
     }
 
     func downloadMoyaLogo() {
+        ///下载
         gitHubUserContentProvider.request(.downloadMoyaWebContent("logo_github.png"),
                                           callbackQueue: DispatchQueue.main,
                                           progress: progressClosure,
@@ -65,13 +70,14 @@ class ViewController: UITableViewController {
     }
 
     // MARK: - Progress Helpers
-
+    ///上传进度
     lazy var progressClosure: ProgressBlock = { response in
         UIView.animate(withDuration: 0.3) {
             self.progressView.frame.size.width = self.view.frame.size.width * CGFloat(response.progress)
         }
     }
 
+    ///完成回调
     lazy var progressCompletionClosure: Completion = { result in
         let color: UIColor
         switch result {

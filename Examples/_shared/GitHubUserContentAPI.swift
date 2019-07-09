@@ -38,10 +38,12 @@ extension GitHubUserContent: TargetType {
     }
 }
 
+///下载路径
 private let defaultDownloadDestination: DownloadDestination = { temporaryURL, response in
     let directoryURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 
     if !directoryURLs.isEmpty {
+        ///存储路径
         guard let suggestedFilename = response.suggestedFilename else {
             fatalError("@Moya/contributor error!! We didn't anticipate this being nil")
         }

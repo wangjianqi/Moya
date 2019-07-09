@@ -1,9 +1,11 @@
 import Foundation
 import Moya
 
+///类型
 let giphyProvider = MoyaProvider<Giphy>()
 
 public enum Giphy {
+    ///上传
     case upload(gif: Data)
 }
 
@@ -28,6 +30,8 @@ extension Giphy: TargetType {
             return .uploadCompositeMultipart(multipartFormData, urlParameters: ["api_key": "dc6zaTOxFJmzC", "username": "Moya"])
         }
     }
+    
+    ///测试数据
     public var sampleData: Data {
         switch self {
         case .upload:
